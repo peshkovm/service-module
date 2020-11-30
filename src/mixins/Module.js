@@ -5,15 +5,13 @@ import { Component } from 'vue-property-decorator';
   name: 'module-mixin',
   computed: {
     ...mapGetters({
-      getApp: 'app/getApp',
-      getPlayer: 'app/getPlayer',
-
     }),
   },
   methods: {
     ...mapMutations('app', {}),
   },
 })
+
 class Module {
   static isNumOfActiveAppsRunning = false;
 
