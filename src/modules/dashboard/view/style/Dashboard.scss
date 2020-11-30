@@ -1,0 +1,23 @@
+.md-app-content {
+  border: 0;
+}
+
+.p-purple:before{
+  display: inline-block;
+  vertical-align: middle;
+  content: "";
+  width: 29px;
+  height: 2px;
+  background-color: #5e3075;
+  margin-right: 8px;
+}
+
+.p-orange:before{
+  display: inline-block;
+  vertical-align: middle;
+  content: "";
+  width: 29px;
+  height: 2px;
+  background-color: #f36f21;
+  margin-right: 8px;
+}
