@@ -15,12 +15,8 @@ class NumOfActiveApps extends Vue {
   btnText = '';
 
   created() {
-    Module.init = () => {
-      this.isModuleRunning = Module.isNumOfActiveAppsRunning;
-      this.btnText = this.getBtnText();
-      this.updateAppTime(55555);
-    };
-    this.startGame();
+    this.isModuleRunning = Module.isNumOfActiveAppsRunning;
+    this.btnText = this.getBtnText();
   }
 
   onBtnClick() {

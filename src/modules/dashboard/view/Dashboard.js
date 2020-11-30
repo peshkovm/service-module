@@ -9,8 +9,8 @@ import Module from '@/mixins/Module';
   ],
 })
 class Dashboard extends Vue {
+  // eslint-disable-next-line class-methods-use-this
   created() {
-    this.startDashboard();
   }
 }
 

@@ -14,12 +14,8 @@ class AppsActAndDeactTime extends Vue {
   btnText = '';
 
   created() {
-    Module.init = () => {
-      this.isModuleRunning = Module.isAppsActAndDeactTimeRunning;
-      this.btnText = this.getBtnText();
-      this.updateAppTime(55555);
-    };
-    this.startGame();
+    this.isModuleRunning = Module.isAppsActAndDeactTimeRunning;
+    this.btnText = this.getBtnText();
   }
 
   onBtnClick() {
