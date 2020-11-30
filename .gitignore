@@ -24,5 +24,5 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-/android
+android
 /capacitor.config.json
