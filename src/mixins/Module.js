@@ -62,6 +62,10 @@ class Module {
   }
 
   static init = null;
+
+  static isNumOfActiveAppsRunning = false;
+
+  static isAppsActAndDeactTimeRunning = false;
 }
 
 export default Module;

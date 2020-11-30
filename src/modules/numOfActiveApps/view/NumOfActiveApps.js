@@ -10,10 +10,31 @@ import Module from '@/mixins/Module';
 })
 
 class NumOfActiveApps extends Vue {
+  isModuleRunning = null;
+
+  btnText = '';
+
   created() {
     Module.init = () => {
+      this.isModuleRunning = Module.isNumOfActiveAppsRunning;
+      this.btnText = this.getBtnText();
+      this.updateAppTime(55555);
     };
     this.startGame();
+  }
+
+  onBtnClick() {
+    Module.isNumOfActiveAppsRunning = !Module.isNumOfActiveAppsRunning;
+    this.isModuleRunning = Module.isNumOfActiveAppsRunning;
+    this.btnText = this.getBtnText();
+  }
+
+  getIsModuleRunning() {
+    return this.isModuleRunning;
+  }
+
+  getBtnText() {
+    return this.isModuleRunning === false ? 'Start Module' : 'Stop Module';
   }
 }
 

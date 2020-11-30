@@ -1,5 +1,11 @@
 <md-app v-if="!isStartingStatus && !isDifficultyStatus">
   <md-app-content>
-    Num of active apps
+    <md-button @click="onBtnClick()"
+               v-bind:class="{'greenButton':getIsModuleRunning()===false,
+                        'redButton':getIsModuleRunning()===true}"
+               id="btn"
+    >
+      {{ btnText }}
+    </md-button>
   </md-app-content>
 </md-app>
