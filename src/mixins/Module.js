@@ -15,7 +15,7 @@ import { Component } from 'vue-property-decorator';
 class Module {
   static isNumOfActiveAppsRunning = false;
 
-  static isAppsActAndDeactTimeRunning = false;
+  static isAppsTimestampsRunning = false;
 }
 
 export default Module;

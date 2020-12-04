@@ -4,8 +4,8 @@ import VueRouter from 'vue-router';
 import AppView from '@/views/appView/vue/AppView.vue';
 
 import dashboardRoutes from '@/modules/dashboard/DashboardRoutes';
-import numOfActiveAppsRoutes from '@/modules/numOfActiveApps/NumOfActiveAppsRoutes';
-import appsActAndDeactTimeRoutes from '@/modules/appsActAndDeactTime/AppsActAndDeactTimeRoutes';
+// import numOfActiveAppsRoutes from '@/modules/numOfActiveApps/NumOfActiveAppsRoutes';
+import appsTimestampsRoutes from '@/modules/appsTimestamps/AppsTimestampsRoutes';
 
 Vue.use(VueRouter);
 
@@ -17,8 +17,8 @@ const routes = [
     component: AppView,
     children: [
       ...dashboardRoutes,
-      ...numOfActiveAppsRoutes,
-      ...appsActAndDeactTimeRoutes,
+      // ...numOfActiveAppsRoutes,
+      ...appsTimestampsRoutes,
     ],
   },
   {
