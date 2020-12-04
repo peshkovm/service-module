@@ -2,10 +2,10 @@ import { Component, Vue } from 'vue-property-decorator';
 
 import Module from '@/mixins/Module';
 
-// import { Plugins } from '@capacitor/core';
-// import 'apps-timestamps-plugin';
-//
-// const { AppsTimestampsPlugin, BackgroundTask } = Plugins;
+import { Plugins } from '@capacitor/core';
+import 'apps-timestamps-plugin';
+
+const { AppsTimestampsPlugin, BackgroundTask } = Plugins;
 
 @Component({
   name: 'apps-act-and-deact-time',
@@ -60,25 +60,25 @@ class AppsTimestamps extends Vue {
    *
    * @returns {Promise<*>}
    */
-  // // eslint-disable-next-line class-methods-use-this
-  // getAppsTimestamps() {
-  //   return AppsTimestampsPlugin.getAppsTimestamps();
-  // }
-  //
-  // // eslint-disable-next-line class-methods-use-this
-  // runInBackground(yourFunc) {
-  //   const taskId = BackgroundTask.beforeExit(async () => {
-  //     // Example of long task
-  //     yourFunc();
-  //
-  //     // Must call in order to end our task otherwise
-  //     // we risk our app being terminated, and possibly
-  //     // being labeled as impacting battery life
-  //     BackgroundTask.finish({
-  //       taskId,
-  //     });
-  //   });
-  // }
+  // eslint-disable-next-line class-methods-use-this
+  getAppsTimestamps() {
+    return AppsTimestampsPlugin.getAppsTimestamps();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  runInBackground(yourFunc) {
+    const taskId = BackgroundTask.beforeExit(async () => {
+      // Example of long task
+      yourFunc();
+
+      // Must call in order to end our task otherwise
+      // we risk our app being terminated, and possibly
+      // being labeled as impacting battery life
+      BackgroundTask.finish({
+        taskId,
+      });
+    });
+  }
 
   getIsModuleRunning() {
     return this.isModuleRunning;
