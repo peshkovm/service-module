@@ -27,6 +27,13 @@ class AppsTimestamps extends Vue {
     Module.isAppsTimestampsRunning = !Module.isAppsTimestampsRunning;
     this.isModuleRunning = Module.isAppsTimestampsRunning;
     this.btnText = this.getBtnText();
+
+    if (this.getIsModuleRunning()) {
+      this.runInBackground(() => {
+        /* your logic */
+        console.log('Module is working!');
+      }, 3000);
+    }
   }
 
   /**
@@ -66,17 +73,22 @@ class AppsTimestamps extends Vue {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  runInBackground(yourFunc) {
+  runInBackground(func, ms) {
     const taskId = BackgroundTask.beforeExit(async () => {
       // Example of long task
-      yourFunc();
+      const task = () => {
+        if (this.getIsModuleRunning()) {
+          func();
+          setTimeout(task, ms);
+        } else {
+          console.log('Background task has stopped');
+          BackgroundTask.finish({
+            taskId,
+          });
+        }
+      };
 
-      // Must call in order to end our task otherwise
-      // we risk our app being terminated, and possibly
-      // being labeled as impacting battery life
-      BackgroundTask.finish({
-        taskId,
-      });
+      setTimeout(task, ms);
     });
   }
 
