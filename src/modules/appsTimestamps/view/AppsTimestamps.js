@@ -31,9 +31,35 @@ class AppsTimestamps extends Vue {
     if (this.getIsModuleRunning()) {
       this.runInBackground(() => {
         /* your logic */
+        const response = this.sendAppsTimestamps();
+        console.log('response from server\n');
+        console.log(response);
         console.log('Module is working!');
       }, 3000);
     }
+  }
+
+  /* отправка данных на сервер */
+  sendAppsTimestamps() {
+    return fetch('configuration.json')
+      .then((response) => response.json())
+      .then(({ api }) => this.getAppsTimestamps()
+        .then((appsTimestampsObj) => {
+          const appsTimestamps = appsTimestampsObj.value;
+
+          // Нужно создать post контроллер с /api/apps
+          return fetch(`${api.server}/apps`, {
+            method: 'POST',
+            body: JSON.stringify(...appsTimestamps.map((appsTimestamp) => ({
+              name: appsTimestamp.packageName,
+              time: Number(appsTimestamp.totalTimeVisible),
+            }))),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+            .then((response) => response.json());
+        }));
   }
 
   /**
