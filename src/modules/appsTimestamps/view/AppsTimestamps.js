@@ -34,14 +34,15 @@ class AppsTimestamps extends Vue {
       this.getAppsTimestamps()
         .then((appsTimestampsObj) => {
           this.lastTimeVisible = appsTimestampsObj.value;
+        }).then(() => {
+          this.runInBackground(() => {
+          /* your logic */
+            const response = this.sendAppsTimestamps();
+            console.log('response from server\n');
+            console.log(response);
+            console.log('Module is working!');
+          }, 3000);
         });
-      this.runInBackground(() => {
-        /* your logic */
-        const response = this.sendAppsTimestamps();
-        console.log('response from server\n');
-        console.log(response);
-        console.log('Module is working!');
-      }, 3000);
     }
   }
 
