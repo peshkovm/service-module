@@ -16,9 +16,15 @@ const { AppsTimestampsPlugin, BackgroundTask } = Plugins;
 class AppsTimestamps extends Vue {
   isModuleRunning = null;
 
+  lastTimeVisible;
+
   btnText = '';
 
   created() {
+    this.getAppsTimestamps()
+      .then((appsTimestampsObj) => {
+        this.lastTimeVisible = appsTimestampsObj.value;
+      });
     this.isModuleRunning = Module.isAppsTimestampsRunning;
     this.btnText = this.getBtnText();
   }
@@ -46,7 +52,9 @@ class AppsTimestamps extends Vue {
       .then(({ api }) => this.getAppsTimestamps()
         .then((appsTimestampsObj) => {
           const appsTimestamps = appsTimestampsObj.value;
-
+          for (let i = 0; i < this.lastTimeVisible.length; i += 1) {
+            appsTimestamps[i].totalTimeVisible -= this.lastTimeVisible[i].totalTimeVisible;
+          }
           // Нужно создать post контроллер с /api/apps
           return fetch(`${api.server}/apps`, {
             method: 'POST',
