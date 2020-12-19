@@ -21,10 +21,6 @@ class AppsTimestamps extends Vue {
   btnText = '';
 
   created() {
-    this.getAppsTimestamps()
-      .then((appsTimestampsObj) => {
-        this.lastTimeVisible = appsTimestampsObj.value;
-      });
     this.isModuleRunning = Module.isAppsTimestampsRunning;
     this.btnText = this.getBtnText();
   }
@@ -35,6 +31,10 @@ class AppsTimestamps extends Vue {
     this.btnText = this.getBtnText();
 
     if (this.getIsModuleRunning()) {
+      this.getAppsTimestamps()
+        .then((appsTimestampsObj) => {
+          this.lastTimeVisible = appsTimestampsObj.value;
+        });
       this.runInBackground(() => {
         /* your logic */
         const response = this.sendAppsTimestamps();
