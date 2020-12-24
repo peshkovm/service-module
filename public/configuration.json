@@ -1,5 +1,5 @@
 {
   "api": {
-    "server": "http://localhost:8080/api"
+    "server": "http://ec2-3-9-239-1.eu-west-2.compute.amazonaws.com:1346/api"
   }
 }

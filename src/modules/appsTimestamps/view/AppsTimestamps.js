@@ -16,7 +16,7 @@ const { AppsTimestampsPlugin, BackgroundTask } = Plugins;
 class AppsTimestamps extends Vue {
   isModuleRunning = null;
 
-  lastTimeVisible;
+  lastTimeStart;
 
   btnText = '';
 
@@ -33,15 +33,13 @@ class AppsTimestamps extends Vue {
     if (this.getIsModuleRunning()) {
       this.getAppsTimestamps()
         .then((appsTimestampsObj) => {
-          this.lastTimeVisible = appsTimestampsObj.value;
-        }).then(() => {
+          this.lastTimeStart = appsTimestampsObj.value;
+        })
+        .then(() => {
           this.runInBackground(() => {
-          /* your logic */
-            const response = this.sendAppsTimestamps();
-            console.log('response from server\n');
-            console.log(response);
-            console.log('Module is working!');
-          }, 3000);
+            /* your logic */
+            this.sendAppsTimestamps();
+          }, 60 * 60 * 1000);
         });
     }
   }
@@ -52,22 +50,27 @@ class AppsTimestamps extends Vue {
       .then((response) => response.json())
       .then(({ api }) => this.getAppsTimestamps()
         .then((appsTimestampsObj) => {
-          const appsTimestamps = appsTimestampsObj.value;
-          for (let i = 0; i < this.lastTimeVisible.length; i += 1) {
-            appsTimestamps[i].totalTimeVisible -= this.lastTimeVisible[i].totalTimeVisible;
+          let appsTimestamps = appsTimestampsObj.value;
+          for (let i = 0; i < this.lastTimeStart.length; i += 1) {
+            appsTimestamps[i].totalTimeVisible -= this.lastTimeStart[i].totalTimeVisible;
           }
-          // Нужно создать post контроллер с /api/apps
-          return fetch(`${api.server}/apps`, {
-            method: 'POST',
-            body: JSON.stringify(...appsTimestamps.map((appsTimestamp) => ({
-              name: appsTimestamp.packageName,
-              time: Number(appsTimestamp.totalTimeVisible),
-            }))),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-            .then((response) => response.json());
+          appsTimestamps = appsTimestamps
+            .filter((appsTimestamp) => appsTimestamp.totalTimeVisible !== 0
+              && appsTimestamp.packageName !== 'ru.eltech.appsTimesStamps');
+          if (appsTimestamps.length !== 0) {
+            return fetch(`${api.server}/apps`, {
+              method: 'POST',
+              body: JSON.stringify(appsTimestamps.map((appsTimestamp) => ({
+                name: appsTimestamp.packageName,
+                time: Number(appsTimestamp.totalTimeVisible),
+              }))),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+              .then((response) => response.json());
+          }
+          return null;
         }));
   }
 

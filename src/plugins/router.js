@@ -3,8 +3,6 @@ import VueRouter from 'vue-router';
 
 import AppView from '@/views/appView/vue/AppView.vue';
 
-import dashboardRoutes from '@/modules/dashboard/DashboardRoutes';
-// import numOfActiveAppsRoutes from '@/modules/numOfActiveApps/NumOfActiveAppsRoutes';
 import appsTimestampsRoutes from '@/modules/appsTimestamps/AppsTimestampsRoutes';
 
 Vue.use(VueRouter);
@@ -13,11 +11,9 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    redirect: '/dashboard',
+    redirect: '/apps-timestamps',
     component: AppView,
     children: [
-      ...dashboardRoutes,
-      // ...numOfActiveAppsRoutes,
       ...appsTimestampsRoutes,
     ],
   },

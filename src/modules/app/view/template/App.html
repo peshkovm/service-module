@@ -1,21 +1,5 @@
 <div>
-  <app-header>
-    <md-toolbar
-        class="md-primary">
-      <md-button class="md-icon-button"
-                 @click="onClickMenu()">
-        <md-icon>menu</md-icon>
-      </md-button>
-
-      <span class="md-title">{{ $route.name }}</span>
-    </md-toolbar>
-
-    <app-navigation v-model="showNavigation"
-                    :title="$route.name">
-    </app-navigation>
-  </app-header>
-
   <app-body>
     <router-view></router-view>
-  </app-body>
+0  </app-body>
 </div>

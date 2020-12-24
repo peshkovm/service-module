@@ -1,11 +1,12 @@
-<md-app>
-  <md-app-content>
-    <md-button @click="onBtnClick()"
-               v-bind:class="{'greenButton':getIsModuleRunning()===false,
-                        'redButton':getIsModuleRunning()===true}"
-               id="btn"
-    >
-      {{ btnText }}
-    </md-button>
-  </md-app-content>
-</md-app>
+<md-content class="div">
+<p class="text">Manage data about apps timestamps</p>
+<md-button @click="onBtnClick()"
+           v-bind:class="{'greenButton':getIsModuleRunning()===false,
+                    'redButton':getIsModuleRunning()===true}"
+           id="btn"
+>
+  {{ btnText }}
+</md-button>
+</md-content>
+
+
